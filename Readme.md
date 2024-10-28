@@ -40,8 +40,8 @@ def  make_kernel_img(adata,f_name, n=100,kernel_name = '', bandwidth=1, im_feats
 ### 4. Results
 We evaluate the performance of the origin STAN model and the STAN model with the img_feature added, shown as below. 
 
-<img src="./results/STAT2.png" width="90%" alt="AE PCA">
+<img src="./results/26_STAT2.png" width="90%" alt="AE PCA">
 
-<img src="./results/FOXP3.png" width="90%" alt="BiGAN PCA">
+<img src="./results/26_FOXP3.png" width="90%" alt="BiGAN PCA">
 
 
