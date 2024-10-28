@@ -34,7 +34,7 @@ We use 3 models to extract the img_feature from the patches, including the Autoe
 
 ### 3. Adding the img_feature to the STAN model.
 First, we need to do PCA on the img_feature to reduce the dimension of the img_feature.
-We added 30, 4, 50 PCs of the img_feature to the STAN model, respectively.
+We added 30, 10, 50 PCs of the img_feature to the STAN model, respectively.
 
 <div style="display: flex; justify-content: space-between;">
   <img src="./results/AE_PCA.png" width="30%" alt="AE PCA">
