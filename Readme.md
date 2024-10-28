@@ -4,6 +4,20 @@
 
 Using the img_feature of the tissue image as a new feature to the STAN, hoping to improve the performance of the STAN model.
 
+To run the code, you should install the required packages by running the following command in the terminal:
+```angular2html
+pip install -r requirements.txt
+```
+As the onedrive does not take files with specific file_names, the adata was uploaded to the OnDemand server. So, before running the code, You should also download the adata from the OnDemand server, the path is as follows:
+```angular2html
+/ihome/hosmanbeyoglu/haw309/stan_plus/new_stan/results/V1_Human_Lymph_Node26*26.h5ad
+```
+
+You should follow the sequence of the following steps to run the notebook.
+
+* stan_IMG.ipynb
+* stan_plus_noT.ipynb
+* d_analysis.ipynb
 
 ### 1. Extracting the patches from the tissue image.
 
