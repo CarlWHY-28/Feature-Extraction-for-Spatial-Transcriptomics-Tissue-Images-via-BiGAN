@@ -2,7 +2,10 @@
 
 10.28.2024 Update:
 
-<span style="color: red;">Removed the filtering of the spots on the tissue. Updated notebooks. Updated the related resources.</span>
+* Removed the filtering of the spots on the tissue. 
+* Updated the make_kernel function -- remove the RGB values from the kernel.
+* Streamlined the process in d_analysis notebook.
+* Updated the related resources.
 
 ### Introduction
 
