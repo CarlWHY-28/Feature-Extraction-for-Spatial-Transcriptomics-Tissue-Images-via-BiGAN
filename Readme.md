@@ -1,5 +1,9 @@
 # STAN_plus
 
+10.28.2024 Update:
+
+<span style="color: red;">Removed the filtering of the spots on the tissue. Updated notebooks. Updated the related resources.</span>
+
 ### Introduction
 
 Using the img_feature of the tissue image as a new feature to the STAN, hoping to improve the performance of the STAN model.
@@ -23,7 +27,7 @@ You should follow the sequence of the following steps to run the notebook.
 
 For each spot, we extract a patch (26*26) of the tissue image centered at the spot if it is on the tissue.
 
-We firstly extract the contours of the tissue, and then we can determine whether the spot is on the tissue by checking whether the spot is in the contours.
+~~We firstly extract the contours of the tissue, and then we can determine whether the spot is on the tissue by checking whether the spot is in the contours.~~
 
 ### 2. Extracting the img_feature from the patches.
 We use 3 models to extract the img_feature from the patches, including the Autoencoder, BiGAN, and Dino.
