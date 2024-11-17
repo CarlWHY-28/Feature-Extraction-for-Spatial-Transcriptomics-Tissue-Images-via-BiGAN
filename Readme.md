@@ -1,5 +1,11 @@
 # STAN_plus
 
+11.16.2024 Update:
+* Updated new methods to extract the img_feature from the patches.
+* Removed the STAN in this repository (in the Lab's repository).
+* Only kept the BiGAN pipeline in this repository.
+* Updated the Readme.md, with the new pipeline and the new results.
+
 10.28.2024 Update:
 
 * Removed the filtering of the spots on the tissue. 
@@ -9,60 +15,40 @@
 
 ### Introduction
 
-Using the img_feature of the tissue image as a new feature to the STAN, hoping to improve the performance of the STAN model.
+In current omics data research, feature extraction from tissue images has become an important step. 
+
+In Spatial Transcriptomics, the image representation of each point provides new information for quantifying transcription factors or signaling pathways.
+
+Here we tried to extract the representation of the tissue image by using the BiGAN model, and then added the representation to the downstream analysis model, STAN.
+
+We use the BiGAN model to **reconstruct larger images from smaller patches**, which can force both the encoder and decoder to learn the potential representation of the tissue image.
 
 To run the code, you should install the required packages by running the following command in the terminal:
 ```angular2html
 pip install -r requirements.txt
 ```
-As the onedrive does not take files with specific file_names, the adata was uploaded to the OnDemand server. So, before running the code, You should also download the adata from the OnDemand server, the path is as follows:
-```angular2html
-/ihome/hosmanbeyoglu/haw309/stan_plus/new_stan/results/V1_Human_Lymph_Node26*26.h5ad
-```
-
-You should follow the sequence of the following steps to run the notebook.
-
-* stan_IMG.ipynb
-* stan_plus_noT.ipynb
-* d_analysis.ipynb
 
 ### 1. Extracting the patches from the tissue image.
 
-For each spot, we extract a patch (26*26) of the tissue image centered at the spot if it is on the tissue.
+For each spot, we extract a patch (36 * 36) of the tissue image centered at the spot if it is on the tissue.
 
 ~~We firstly extract the contours of the tissue, and then we can determine whether the spot is on the tissue by checking whether the spot is in the contours.~~
 
-### 2. Extracting the img_feature from the patches.
-We use 3 models to extract the img_feature from the patches, including the Autoencoder, BiGAN, and Dino.
+### 2. Unsupervised learning to extract the img_feature from the patches.
 
-* For the Autoencoder and BiGAN, we use the encoder part to extract the img_feature. Before extracting the img_feature, we need to train the model with the patches, which is a self-supervised learning task.
+We use BiGAN to extract the representations from the patches of tissue image.
+<img src="./imgs/BiGAN.png" width="90%" alt="BiGAN_model">
 
-* For the Dino, we use the pre-trained model to finetune the patches. The Dino model is a self-supervised learning model, which can be used to extract the img_feature directly.
+While training the BiGAN model, we crop the patches from the tissue image into 26 * 26 as the input of the encoder. In addition, we use the decoder to reconstruct the intact patches (36 * 36) from the latent space.
 
-### 3. Adding the img_feature to the STAN model.
-First, we need to do PCA on the img_feature to reduce the dimension of the img_feature.
-We added 30, 10, 50 PCs of the img_feature to the STAN model, respectively.
+The BiGAN model is trained with the patches of the tissue image, and the latent space is the img_feature of the patches.
+
+As a result, here is a comparison of the patches and the reconstructed patches by the BiGAN model. Each image is divided vertically into two parts, with the top part showing the original image and the bottom part showing the reconstructed image.
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="./results/AE_PCA.png" width="30%" alt="AE PCA">
-  <img src="./results/BiGAN_PCA.png" width="30%" alt="BiGAN PCA">
-  <img src="./results/Dino_PCA.png" width="30%" alt="Dino PCA">
+  <img src="./imgs/test_real_fake_batch_0.png" width="25%" alt="BiGAN_test_0">
+  <img src="./imgs/test_real_fake_batch_12.png" width="25%" alt="BiGAN_test_1">
+  <img src="./imgs/test_real_fake_batch_15.png" width="25%" alt="BiGAN_test_2">
 </div>
-
-
-```angular2html
-
-Adding the img_feature PCs as a new feature to the kernel.
-```angular2html
-def  make_kernel_img(adata,f_name, n=100,kernel_name = '', bandwidth=1, im_feats_weight=0.3):
-    X = np.concatenate((adata.obsm['spatial'][:, 0:2], adata.obsm['pixel'], adata.obsm[f_name]), axis=1)
-```
-
-### 4. Results
-We evaluate the performance of the origin STAN model and the STAN model with the img_feature added, shown as below. 
-
-<img src="./results/26_STAT2.png" width="90%" alt="AE PCA">
-
-<img src="./results/26_FOXP3.png" width="90%" alt="BiGAN PCA">
 
 
