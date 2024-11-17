@@ -1,4 +1,4 @@
-# STAN_plus
+# Tissue Image Feature Extraction Method Using BiGAN
 
 11.16.2024 Update:
 * Updated new methods to extract the img_feature from the patches.
