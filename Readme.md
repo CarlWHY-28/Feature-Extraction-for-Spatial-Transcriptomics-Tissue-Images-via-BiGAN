@@ -1,4 +1,4 @@
-# Tissue Image Feature Extraction Method Using BiGAN
+# Feature Extraction for Spatial Transcriptomics Tissue Images via BiGAN
 
 11.16.2024 Update:
 * Updated new methods to extract the img_feature from the patches.
